@@ -1,0 +1,194 @@
+.kl-login {
+  --bg: #050b14;
+  --bg-2: #0a1625;
+  --card: rgba(10, 22, 37, 0.8);
+  --border: rgba(56, 189, 248, 0.25);
+  --cyan: #22d3ee;
+  --cyan-2: #0ea5c9;
+  --text: #ffffff;
+  --muted: #9fb3c8;
+
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(circle at 80% 10%, rgba(14, 165, 201, 0.25), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(34, 211, 238, 0.12), transparent 40%),
+    linear-gradient(160deg, var(--bg-2), var(--bg));
+}
+
+.kl-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 36px 32px;
+  border-radius: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 0 60px rgba(14, 165, 201, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.kl-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.kl-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: #0b0f16;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: grid;
+  place-items: center;
+}
+
+.kl-name {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.kl-tagline {
+  margin: 0 0 24px;
+  color: var(--cyan);
+  letter-spacing: 0.25em;
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+.kl-headline {
+  font-size: 26px;
+  line-height: 1.2;
+  margin: 0 0 6px;
+  background: linear-gradient(90deg, #ffffff, #7dd3fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.kl-sub {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.kl-label {
+  display: block;
+  margin: 16px 0 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Input with an icon box on the left */
+.kl-field {
+  display: flex;
+  align-items: stretch;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(5, 11, 20, 0.7);
+  overflow: hidden;
+}
+
+.kl-field:focus-within {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2);
+}
+
+.kl-field-icon {
+  width: 48px;
+  display: grid;
+  place-items: center;
+  color: var(--cyan);
+  background: rgba(34, 211, 238, 0.08);
+  border-right: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.kl-input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+}
+
+.kl-input::placeholder {
+  color: #5f7790;
+}
+
+.kl-submit {
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--cyan), var(--cyan-2));
+  color: #04202b;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.35);
+}
+
+.kl-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.kl-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  font-size: 13px;
+}
+
+.kl-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cyan);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.kl-link:hover {
+  color: #a5f3fc;
+}
+
+.kl-message {
+  margin-top: 16px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.kl-message.error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+.kl-message.success {
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(34, 211, 238, 0.4);
+  color: #a5f3fc;
+}
+
+   .kl-input:-webkit-autofill {
+     -webkit-box-shadow: 0 0 0 100px #050b14 inset;
+     -webkit-text-fill-color: #ffffff;
+     caret-color: #ffffff;
+   }
