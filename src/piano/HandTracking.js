@@ -10,8 +10,8 @@ import {
   HandLandmarker
 } from "@mediapipe/tasks-vision";
 
-import { initializeAudio } from "./Auido";
-import { FINGERS, getNoteForFinger } from "./Notes";
+import { initializeAudio } from "./Audio.js";
+import { FINGERS, getNoteForFinger } from "./Notes.js";
 
 const WASM_URL =
   "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm";

@@ -1,43 +1,40 @@
+
 import { useCallback, useState } from "react";
-
 import { useHandTracking } from "../piano/HandTracking.js";
-import { playPianoNote } from "../piano/Auido.js";
+import { playPianoNote } from "../piano/Audio.js";
 import { HAND_NOTES } from "../piano/Notes.js";
-
-import "./Piano.css";
+import "./piano.css";
 
 export default function Piano() {
   const [activeNotes, setActiveNotes] = useState([]);
   const [recentNotes, setRecentNotes] = useState([]);
-  const [audioError, setAudioError] = useState("");
+  const [error, setError] = useState("");
 
   const handleNote = useCallback((note, details = {}) => {
-    setAudioError("");
-
-    playPianoNote(note).catch((error) => {
-      console.error("Audio playback failed:", error);
-      setAudioError("Audio failed. Click a piano key to try again.");
+    playPianoNote(note).catch((err) => {
+      console.error("Audio error:", err);
+      setError("Sound failed. Check Audio.js.");
     });
 
-    setActiveNotes((previous) =>
-      previous.includes(note) ? previous : [...previous, note]
+    setActiveNotes((prev) =>
+      prev.includes(note) ? prev : [...prev, note]
     );
 
-    window.setTimeout(() => {
-      setActiveNotes((previous) =>
-        previous.filter((item) => item !== note)
-      );
-    }, 200);
-
-    setRecentNotes((previous) => [
-      ...previous.slice(-9),
+    setRecentNotes((prev) => [
       {
         id: `${Date.now()}-${Math.random()}`,
         note,
-        side: details.side ?? "Keyboard",
-        finger: details.finger ?? "Click"
-      }
-    ]);
+        hand: details.side ?? "Keyboard",
+        finger: details.finger ?? "Manual"
+      },
+      ...prev
+    ].slice(0, 8));
+
+    window.setTimeout(() => {
+      setActiveNotes((prev) =>
+        prev.filter((n) => n !== note)
+      );
+    }, 250);
   }, []);
 
   const {
@@ -51,52 +48,38 @@ export default function Piano() {
     stopTracking
   } = useHandTracking(handleNote);
 
-  function handleKeyClick(note) {
-    handleNote(note, {
-      side: "Keyboard",
-      finger: "Click"
-    });
-  }
-
   return (
-    <main className="piano-page">
-      <header className="piano-header">
+    <main className="air-piano">
+      <header className="air-header">
         <div>
-          <p className="piano-eyebrow">AIR PIANO</p>
+          <p className="eyebrow">AIR PIANO</p>
           <h1>Play music with your hands.</h1>
-          <p className="piano-subtitle">
-            Use both hands to play ten notes without touching a
-            physical keyboard. Move your fingers downward across
-            the yellow line to play.
+          <p className="subtitle">
+            Your hands are the instrument. Move your fingers
+            down across the yellow line to play notes.
           </p>
         </div>
 
-        <div className="piano-status">
-          <span
-            className={`piano-status-dot ${
-              handCount > 0 ? "detected" : ""
-            }`}
-          />
+        <div className="tracking-status">
+          <span className={`status-dot ${handCount ? "on" : ""}`} />
           {handCount === 2
-            ? "Both hands detected"
+            ? "Two hands detected"
             : handCount === 1
               ? "One hand detected"
-              : isStarting
-                ? "Starting..."
-                : isTracking
-                  ? "Looking for hands"
-                  : "Camera off"}
+              : isTracking
+                ? "Looking for hands..."
+                : "Camera off"}
         </div>
       </header>
 
-      <section className="piano-layout">
-        <div className="piano-card">
-          <div className="piano-card-heading">
-            <h2>Live Hand Tracking</h2>
-            <span>Up to 2 hands</span>
+      <section className="air-grid">
+        <article className="air-card">
+          <div className="section-heading">
+            <h2>Live Camera</h2>
+            <span>MediaPipe tracking</span>
           </div>
 
-          <div className="camera-stage">
+          <div className="camera-box">
             <video
               ref={videoRef}
               autoPlay
@@ -104,44 +87,42 @@ export default function Piano() {
               muted
             />
 
-            <canvas
-              ref={canvasRef}
-              aria-hidden="true"
-            />
+            <canvas ref={canvasRef} />
 
             {!isTracking && !isStarting && (
-              <div className="camera-placeholder">
-                <span>📷</span>
-                <strong>Your camera will appear here</strong>
+              <div className="camera-message">
+                <span className="camera-icon">📷</span>
+                <h3>See yourself here</h3>
                 <p>Start the camera to begin playing.</p>
               </div>
             )}
 
             {isStarting && (
-              <div className="camera-placeholder">
-                <strong>Loading hand tracking...</strong>
-                <p>This may take a few seconds.</p>
+              <div className="camera-message">
+                <h3>Starting your camera...</h3>
+                <p>Loading the hand-tracking model.</p>
               </div>
             )}
           </div>
 
-          <p className="piano-help" role="status">
+          <p className="camera-status" role="status">
             {status}
           </p>
 
-          <div className="piano-actions">
+          <div className="camera-buttons">
             <button
-              type="button"
-              className="piano-button primary"
-              onClick={startTracking}
-              disabled={isStarting || isTracking}
+              className="start-button"
+              onClick={() => {
+                setError("");
+                startTracking();
+              }}
+              disabled={isTracking || isStarting}
             >
               {isStarting ? "Starting..." : "Start Camera"}
             </button>
 
             <button
-              type="button"
-              className="piano-button secondary"
+              className="stop-button"
               onClick={stopTracking}
               disabled={!isTracking && !isStarting}
             >
@@ -149,37 +130,27 @@ export default function Piano() {
             </button>
           </div>
 
-          {audioError && (
-            <p className="piano-error" role="alert">
-              {audioError}
-            </p>
-          )}
-        </div>
+          {error && <p className="error-message">{error}</p>}
+        </article>
 
-        <div className="piano-card">
-          <div className="piano-card-heading">
+        <article className="air-card">
+          <div className="section-heading">
             <h2>Virtual Piano</h2>
-            <span>10 notes</span>
+            <span>Click or play with your hands</span>
           </div>
 
-          <p className="piano-instructions">
-            Each finger has its own note. Click a key to test
-            the sound, or use the camera to play with your hands.
-          </p>
-
-          {Object.entries(HAND_NOTES).map(([side, notes]) => (
-            <div className="hand-keyboard" key={side}>
-              <h3>{side} Hand</h3>
+          {Object.entries(HAND_NOTES).map(([hand, notes]) => (
+            <div className="hand-section" key={hand}>
+              <h3>{hand} Hand</h3>
 
               <div className="piano-keys">
                 {notes.map((note) => (
                   <button
                     key={note}
-                    type="button"
                     className={`piano-key ${
                       activeNotes.includes(note) ? "active" : ""
                     }`}
-                    onClick={() => handleKeyClick(note)}
+                    onClick={() => handleNote(note)}
                     aria-label={`Play ${note}`}
                   >
                     <span>{note}</span>
@@ -189,25 +160,23 @@ export default function Piano() {
             </div>
           ))}
 
-          <div className="notes-history">
+          <div className="recent-section">
             <h3>Recently Played</h3>
 
             {recentNotes.length === 0 ? (
               <p>Your notes will appear here.</p>
             ) : (
               <ul>
-                {recentNotes.slice().reverse().map((item) => (
+                {recentNotes.map((item) => (
                   <li key={item.id}>
                     <strong>{item.note}</strong>
-                    <span>
-                      {item.side} hand · {item.finger}
-                    </span>
+                    <span>{item.hand} · {item.finger}</span>
                   </li>
                 ))}
               </ul>
             )}
           </div>
-        </div>
+        </article>
       </section>
     </main>
   );
