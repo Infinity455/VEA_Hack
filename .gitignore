@@ -6,5 +6,6 @@ node_modules/
 dist/
 
 # Environment variables and secrets
+.env
 .env.local
 .env.*.local

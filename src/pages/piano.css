@@ -581,6 +581,92 @@
   color: #ffabb5;
 }
 
+.gemma-card {
+  grid-column: 1 / -1;
+}
+
+.gemma-description,
+.gemma-hint {
+  color: #aeb8d1;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.gemma-hint {
+  margin: 10px 0 0;
+}
+
+.gemma-form {
+  display: grid;
+  gap: 10px;
+  max-width: 680px;
+  margin-top: 22px;
+}
+
+.gemma-form label {
+  color: #e2e6f8;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.gemma-form textarea {
+  width: 100%;
+  min-height: 84px;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid #343d58;
+  border-radius: 10px;
+  background: #101425;
+  color: #f3f4fc;
+  font: inherit;
+}
+
+.gemma-button,
+.gemma-note {
+  width: fit-content;
+  padding: 10px 16px;
+  border: 1px solid #8069d8;
+  border-radius: 10px;
+  background: #332c59;
+  color: #f3f4fc;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.gemma-button:disabled,
+.gemma-note:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.gemma-result {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #343d58;
+}
+
+.gemma-result > p {
+  color: #e2e6f8;
+  line-height: 1.6;
+}
+
+.gemma-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.gemma-note {
+  min-width: 48px;
+  padding: 8px 12px;
+  background: #222b45;
+}
+
+.gemma-error {
+  color: #ffabb5;
+}
+
 /* ==========================================
    RESPONSIVE - TABLETS
    ========================================== */

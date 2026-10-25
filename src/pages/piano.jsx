@@ -13,10 +13,38 @@ import LoopStation from "../components/LoopStation.jsx";
 
 import "./piano.css";
 
+async function requestGemma(endpoint, payload) {
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  let result;
+  try {
+    result = await response.json();
+  } catch {
+    throw new Error(
+      "Could not reach the Gemma API. Start it with npm run dev:api."
+    );
+  }
+
+  if (!response.ok) {
+    throw new Error(result.error ?? "Gemma request failed.");
+  }
+
+  return result;
+}
+
 export default function Piano() {
   const [activeNotes, setActiveNotes] = useState([]);
   const [recentNotes, setRecentNotes] = useState([]);
   const [error, setError] = useState("");
+  const [aiPrompt, setAiPrompt] = useState("");
+  const [aiResult, setAiResult] = useState(null);
+  const [aiError, setAiError] = useState("");
+  const [aiBusy, setAiBusy] = useState(false);
+  const [isPlayingSequence, setIsPlayingSequence] = useState(false);
 
   // Connection to the Loop Station.
   const looperRef = useRef(null);
@@ -122,6 +150,37 @@ export default function Piano() {
       releaseAllPianoNotes();
     };
   }, []);
+
+  async function handleGemmaRequest(endpoint, payload) {
+    setAiBusy(true);
+    setAiError("");
+    setAiResult(null);
+
+    try {
+      setAiResult(await requestGemma(endpoint, payload));
+    } catch (requestError) {
+      console.error("Gemma request failed:", requestError);
+      setAiError(requestError.message);
+    } finally {
+      setAiBusy(false);
+    }
+  }
+
+  async function playGeneratedSequence() {
+    if (!aiResult || isPlayingSequence) return;
+
+    setIsPlayingSequence(true);
+    try {
+      for (const note of aiResult.notes) {
+        handleNote(note);
+        await new Promise((resolve) => {
+          window.setTimeout(resolve, 450);
+        });
+      }
+    } finally {
+      setIsPlayingSequence(false);
+    }
+  }
 
   // ==========================================
   // HAND TRACKING
@@ -363,6 +422,99 @@ export default function Piano() {
               </ul>
             )}
           </div>
+        </article>
+
+        <article className="air-card gemma-card">
+          <div className="section-heading">
+            <h2>Gemma Music Coach</h2>
+            <span>Vertex AI</span>
+          </div>
+
+          <p className="gemma-description">
+            Get a continuation for your recent notes, or describe a melody
+            and ask Gemma to make a short sequence you can play.
+          </p>
+
+          <button
+            className="gemma-button"
+            type="button"
+            onClick={() => {
+              void handleGemmaRequest("/api/gemma/suggest", {
+                recentNotes: recentNotes
+                  .slice()
+                  .reverse()
+                  .map((item) => item.note)
+              });
+            }}
+            disabled={aiBusy || isPlayingSequence || recentNotes.length === 0}
+          >
+            {aiBusy ? "Thinking..." : "Suggest what to play next"}
+          </button>
+          {recentNotes.length === 0 && (
+            <p className="gemma-hint">
+              Play a few notes first to get a personalized suggestion.
+            </p>
+          )}
+
+          <form
+            className="gemma-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              void handleGemmaRequest("/api/gemma/generate", {
+                prompt: aiPrompt
+              });
+            }}
+          >
+            <label htmlFor="gemma-prompt">Ask for a note sequence</label>
+            <textarea
+              id="gemma-prompt"
+              value={aiPrompt}
+              onChange={(event) => setAiPrompt(event.target.value)}
+              placeholder="For example: Make a cheerful five-note melody."
+              maxLength={500}
+              required
+              disabled={aiBusy || isPlayingSequence}
+            />
+            <button
+              className="gemma-button"
+              type="submit"
+              disabled={aiBusy || isPlayingSequence || !aiPrompt.trim()}
+            >
+              {aiBusy ? "Generating..." : "Generate notes"}
+            </button>
+          </form>
+
+          {aiError && (
+            <p className="gemma-error" role="alert">{aiError}</p>
+          )}
+
+          {aiResult && (
+            <div className="gemma-result" aria-live="polite">
+              <p>{aiResult.message}</p>
+              <div className="gemma-notes" aria-label="Generated notes">
+                {aiResult.notes.map((note, index) => (
+                  <button
+                    key={`${note}-${index}`}
+                    className="gemma-note"
+                    type="button"
+                    onClick={() => handleNote(note)}
+                    disabled={isPlayingSequence}
+                    aria-label={`Play ${note}`}
+                  >
+                    {note}
+                  </button>
+                ))}
+              </div>
+              <button
+                className="gemma-button"
+                type="button"
+                onClick={() => void playGeneratedSequence()}
+                disabled={isPlayingSequence}
+              >
+                {isPlayingSequence ? "Playing sequence..." : "Play sequence"}
+              </button>
+            </div>
+          )}
         </article>
       </section>
 
