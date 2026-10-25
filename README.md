@@ -40,10 +40,32 @@ recently played notes or generate a short note sequence from a request.
 4. In one terminal, run `npm.cmd run dev:api`.
 5. In another terminal, run `npm.cmd run dev` and open the Vite URL it prints.
 
-The API server listens only on localhost and Vite forwards `/api` requests to
-it on port 3001. Requests use Vertex AI's `chatCompletions` prediction format
-for deployed Model Garden endpoints. If `VERTEX_ENDPOINT_HOST` is omitted,
-the API uses the regional shared Vertex AI domain.
+For local development, the API server listens only on localhost and Vite
+forwards `/api` requests to it on port 3001. Requests use Vertex AI's
+`chatCompletions` prediction format for deployed Model Garden endpoints. If
+`VERTEX_ENDPOINT_HOST` is omitted, the API uses the regional shared Vertex AI
+domain.
+
+### Deploying Gemma on Vercel
+Vercel serves the Gemma routes as serverless functions at
+`/api/gemma/suggest` and `/api/gemma/generate`. Add these environment variables
+in the Vercel project's **Settings → Environment Variables**:
+
+- `GOOGLE_CLOUD_PROJECT`
+- `GOOGLE_CLOUD_LOCATION`
+- `VERTEX_ENDPOINT_ID`
+- `VERTEX_ENDPOINT_HOST` (the dedicated endpoint domain)
+- `GOOGLE_SERVICE_ACCOUNT_JSON` (the full JSON key for a Google Cloud service
+  account)
+
+Create a service account in the same Google Cloud project, grant it the
+**Vertex AI User** role, create a JSON key, and store the key contents only in
+Vercel's encrypted environment-variable settings. Never commit the key or add
+it to a `VITE_*` variable. Redeploy after changing environment variables.
+
+Vercel hosts the frontend and serverless API, but does not provide the local
+Application Default Credentials used by `gcloud auth application-default
+login`. The Vercel function therefore requires `GOOGLE_SERVICE_ACCOUNT_JSON`.
   
 ## Assigned Tasks
 #### Infinity455
