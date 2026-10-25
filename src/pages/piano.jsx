@@ -258,7 +258,7 @@ export default function Piano() {
 
         {/* LIVE CAMERA */}
 
-        <article className="air-card">
+        <article className="air-card camera-card">
           <div className="section-heading">
             <h2>Live Camera</h2>
             <span>MediaPipe tracking</span>
@@ -330,7 +330,7 @@ export default function Piano() {
 
         {/* VIRTUAL PIANO */}
 
-        <article className="air-card">
+        <article className="air-card piano-card">
           <div className="section-heading">
             <h2>Virtual Piano</h2>
             <span>Click the tiles or play with your hands</span>
@@ -402,26 +402,27 @@ export default function Piano() {
             </div>
           ))}
 
-          {/* RECENTLY PLAYED */}
+        </article>
 
-          <div className="recent-section">
-            <h3>Recently Played</h3>
-
-            {recentNotes.length === 0 ? (
-              <p>Your notes will appear here.</p>
-            ) : (
-              <ul>
-                {recentNotes.map((item) => (
-                  <li key={item.id}>
-                    <strong>{item.note}</strong>
-                    <span>
-                      {item.hand} · {item.finger}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
+        <article className="air-card recent-card">
+          <div className="section-heading">
+            <h2>Recently Played</h2>
           </div>
+
+          {recentNotes.length === 0 ? (
+            <p>Your notes will appear here.</p>
+          ) : (
+            <ul>
+              {recentNotes.map((item) => (
+                <li key={item.id}>
+                  <strong>{item.note}</strong>
+                  <span>
+                    {item.hand} · {item.finger}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
         </article>
 
         <article className="air-card gemma-card">
