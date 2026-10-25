@@ -55,8 +55,8 @@ export default function Piano() {
           <p className="eyebrow">KEYLUSION</p>
           <h1>Play music with your hands.</h1>
           <p className="subtitle">
-            Your hands are the instrument. Move your fingers
-            down across the yellow line to play notes.
+            Your hands are the instrument. Curl a finger toward
+            your palm to play its note, then extend it to play again.
           </p>
         </div>
 
