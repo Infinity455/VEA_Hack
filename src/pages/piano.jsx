@@ -274,7 +274,7 @@ export default function Piano() {
         <article className="air-card">
           <div className="section-heading">
             <h2>Virtual Piano</h2>
-            <span>Click or play with your hands</span>
+            <span>Click the tiles or play with your hands</span>
           </div>
 
           {Object.entries(HAND_NOTES).map(([hand, notes]) => (
