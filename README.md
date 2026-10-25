@@ -24,13 +24,18 @@ The application combines computer vision, audio processing, and web development 
 #### Infinity455
 - set up react and vite
 - help set up main page/design
+- create gemma api
+- code gemma conditions and integrate her into the main piano page
 #### Alonavtech
 - create login page
 - login auhentification
+- create profile/account 
+- add a recording button with supabase storage
 #### Vianneej
 - figure out how to use/set up mediapipe
 - create piano key note code
 - set up piano main page
+- create looper 
   
 ## Resource Videos
 ### MediaPipe 
