@@ -1,106 +1,296 @@
 
-* {
+/* ==========================================
+   KEYLUSION - PIANO PAGE
+   Blue + Purple Theme
+   ========================================== */
+
+.air-piano,
+.air-piano * {
   box-sizing: border-box;
 }
 
 .air-piano {
+  --purple: #965af2;
+  --blue: #526bf7;
+  --panel: #1a2032;
+  --border: #343d58;
+  --muted: #aeb8d1;
+
+  position: relative;
+  isolation: isolate;
   min-height: 100vh;
-  padding: 32px;
-  background: #080b14;
-  color: #f8fafc;
-  font-family: Inter, Arial, sans-serif;
+  padding: 78px clamp(20px, 5vw, 72px) 56px;
+  overflow: hidden;
+
+  background: #101425;
+  color: #f3f4fc;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
 }
 
+/* ==========================================
+   PROFILE MENU - TOP RIGHT
+   ========================================== */
+
+/* ProfileMenu is a sibling of the piano page
+   in App.jsx, not a child of .air-piano. */
+
+#root > .kl-menu {
+  position: fixed;
+  top: 18px;
+  right: clamp(20px, 5vw, 72px);
+  left: auto;
+  bottom: auto;
+  margin: 0;
+  z-index: 1000;
+}
+
+#root > .kl-menu .kl-menu-button {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    #a66cff,
+    #526bf7
+  );
+  color: #ffffff;
+  font-weight: 700;
+  border: 1px solid #a28cfa;
+  box-shadow: none;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+#root > .kl-menu .kl-menu-button:hover {
+  transform: translateY(-2px);
+}
+
+#root > .kl-menu .kl-menu-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  left: auto;
+  max-width: calc(100vw - 32px);
+}
+
+/* ==========================================
+   BACKGROUND CIRCLES
+   ========================================== */
+
+
+/* ==========================================
+   SOFT BLUE + PURPLE BACKGROUND AURA
+   ========================================== */
+
+.air-piano::before,
+.air-piano::after {
+  content: "";
+  position: absolute;
+  border: none;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(70px);
+  opacity: 0.65;
+}
+
+/* Blue aura on the left */
+
+.air-piano::before {
+  width: 620px;
+  height: 620px;
+  left: -260px;
+  top: 100px;
+
+  background: radial-gradient(
+    circle,
+    rgba(82, 107, 247, 0.28) 0%,
+    rgba(82, 107, 247, 0.14) 35%,
+    rgba(82, 107, 247, 0.05) 60%,
+    transparent 80%
+  );
+}
+
+/* Purple aura on the right */
+
+.air-piano::after {
+  width: 650px;
+  height: 650px;
+  right: -270px;
+  bottom: -180px;
+
+  background: radial-gradient(
+    circle,
+    rgba(150, 90, 242, 0.26) 0%,
+    rgba(150, 90, 242, 0.13) 35%,
+    rgba(150, 90, 242, 0.05) 60%,
+    transparent 80%
+  );
+}
+
+.air-piano > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
 .air-header {
-  max-width: 1400px;
-  margin: 0 auto 28px;
+  max-width: 1500px;
+  margin: 0 auto 36px;
+
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   gap: 24px;
 }
 
 .eyebrow {
-  color: #6ee7b7;
-  letter-spacing: 3px;
+  margin: 0 0 16px;
+
+  color: #ad8aff;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 750;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
 .air-header h1 {
-  margin: 10px 0;
-  font-size: clamp(28px, 4vw, 42px);
+  margin: 0 0 14px;
+  color: #f3f4fc;
+
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 750;
+  line-height: 1.16;
+  letter-spacing: -1.3px;
+}
+
+/* Optional heading accent */
+
+.headline-accent {
+  background: linear-gradient(
+    90deg,
+    #b16bff,
+    #6284ff
+  );
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
-  color: #aebbd1;
-  line-height: 1.6;
+  max-width: 760px;
+  margin: 0;
+
+  color: #aeb8d1;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
+/* ==========================================
+   CAMERA STATUS
+   ========================================== */
+
 .tracking-status {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
+
+  padding: 11px 17px;
+  border: 1px solid #343d58;
+  border-radius: 30px;
+  background: #1d2439;
+
+  color: #c3cae0;
+  font-size: 13px;
   white-space: nowrap;
 }
 
 .status-dot {
   width: 10px;
   height: 10px;
+  flex-shrink: 0;
+
   border-radius: 50%;
-  background: #64748b;
+  background: #828ca7;
 }
 
 .status-dot.on {
-  background: #34d399;
+  background: #8b7cf3;
 }
 
+/* ==========================================
+   MAIN LAYOUT
+   ========================================== */
+
 .air-grid {
-  max-width: 1400px;
-  margin: auto;
+  max-width: 1500px;
+  margin: 0 auto;
+
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns:
+    minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
   gap: 24px;
 }
 
 .air-card {
   min-width: 0;
-  padding: 22px;
-  border: 1px solid #263349;
+  padding: 24px;
+
+  border: 1px solid #343d58;
   border-radius: 18px;
-  background: #111827;
+  background: #1a2032;
+  box-shadow: none;
 }
 
 .section-heading {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 18px;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 22px;
 }
 
 .section-heading h2 {
   margin: 0;
-  font-size: 20px;
+
+  color: #f3f4fc;
+  font-size: 21px;
+  font-weight: 700;
 }
 
 .section-heading span {
-  color: #94a3b8;
+  color: #aeb8d1;
   font-size: 12px;
 }
 
+/* ==========================================
+   CAMERA PREVIEW
+   ========================================== */
+
 .camera-box {
   position: relative;
+  width: 100%;
   aspect-ratio: 4 / 3;
+
   overflow: hidden;
-  border-radius: 12px;
-  background: #020617;
+  border: 1px solid #2a324a;
+  border-radius: 14px;
+  background: #0b1020;
 }
 
 .camera-box video,
 .camera-box canvas {
   position: absolute;
   inset: 0;
+
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -117,30 +307,43 @@
 .camera-message {
   position: absolute;
   inset: 0;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  padding: 20px;
   text-align: center;
-  padding: 16px;
-  background: #020617;
+  background: #0b1020;
 }
 
 .camera-icon {
+  margin-bottom: 14px;
   font-size: 36px;
 }
 
 .camera-message h3 {
-  margin-bottom: 4px;
+  margin: 8px 0;
+
+  color: #f3f4fc;
+  font-size: 18px;
 }
 
 .camera-message p,
-.camera-status,
-.recent-section p {
-  color: #94a3b8;
+.camera-status {
+  color: #aeb8d1;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
+
+.camera-status {
+  margin: 15px 0;
+}
+
+/* ==========================================
+   CAMERA BUTTONS
+   ========================================== */
 
 .camera-buttons {
   display: flex;
@@ -150,21 +353,41 @@
 }
 
 .camera-buttons button {
-  padding: 12px 18px;
-  border: 0;
-  border-radius: 9px;
-  font-weight: bold;
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
 }
 
 .start-button {
-  background: #34d399;
-  color: #052e25;
+  background: linear-gradient(
+    110deg,
+    #965af2,
+    #526bf7
+  );
+  color: white;
+}
+
+.start-button:not(:disabled):hover {
+  background: #715eef;
+  transform: translateY(-1px);
 }
 
 .stop-button {
-  background: #263349;
-  color: white;
+  background: #2b3249;
+  color: #d5daf0;
+}
+
+.stop-button:not(:disabled):hover {
+  background: #37405d;
 }
 
 .camera-buttons button:disabled {
@@ -172,50 +395,165 @@
   cursor: not-allowed;
 }
 
+/* ==========================================
+   PIANO SECTIONS
+   ========================================== */
+
 .hand-section {
-  margin-top: 22px;
+  margin-top: 24px;
 }
 
-.hand-section h3,
-.recent-section h3 {
+.hand-section h3 {
+  margin: 0 0 14px;
+
+  color: #e2e6f8;
   font-size: 15px;
+  font-weight: 650;
 }
+
+/* ==========================================
+   PIANO KEYS - NARROWER DESIGN
+   ========================================== */
 
 .piano-keys {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 5px;
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+
+  gap: 10px;
+  max-width: 540px;
+  margin: 0 auto;
 }
 
 .piano-key {
-  height: 170px;
+  position: relative;
+  overflow: hidden;
+
   min-width: 0;
+  width: 100%;
+  height: 158px;
+
   display: flex;
-  justify-content: center;
   align-items: flex-end;
-  padding: 10px 2px;
-  border: 1px solid #cbd5e1;
-  border-radius: 0 0 9px 9px;
-  background: linear-gradient(#fff, #dbe4f0);
-  color: #111827;
-  font-size: 12px;
-  font-weight: bold;
+  justify-content: center;
+
+  padding: 14px 6px 12px;
+
+  border: 1px solid #c8cfdf;
+  border-bottom: 4px solid #bcc4d7;
+  border-radius: 12px 12px 15px 15px;
+
+  background: linear-gradient(
+    180deg,
+    #f8f9fe 0%,
+    #eceff8 55%,
+    #e4e8f3 100%
+  );
+
+  color: #252b40;
+  font-size: 13px;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.1s, transform 0.1s;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+  transition:
+    transform 0.12s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 
+/* Subtle purple-to-blue stripe */
+
+.piano-key::before {
+  content: "";
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 7px;
+  background: linear-gradient(
+    90deg,
+    #965af2,
+    #526bf7
+  );
+}
+
+/* Small highlight near the top */
+
+.piano-key::after {
+  content: "";
+  position: absolute;
+
+  top: 15px;
+  left: 12px;
+  right: 12px;
+
+  height: 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.4);
+
+  pointer-events: none;
+}
+
+.piano-key:hover {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #e7ebf8 60%,
+    #dee4f4 100%
+  );
+}
+
+/* Key pressed by click or hand tracking */
+
 .piano-key.active {
-  background: #34d399;
+  background: linear-gradient(
+    180deg,
+    #e8ddff 0%,
+    #d9d3fb 55%,
+    #cdc7f7 100%
+  );
+
+  border-color: #9a87ed;
+  border-bottom-color: #8167dc;
+  color: #231f36;
+
   transform: translateY(3px);
 }
 
+.piano-key.active::before {
+  background: #7654d9;
+}
+
+/* ==========================================
+   RECENTLY PLAYED NOTES
+   ========================================== */
+
 .recent-section {
-  margin-top: 24px;
-  padding-top: 10px;
-  border-top: 1px solid #263349;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #343d58;
+}
+
+.recent-section h3 {
+  margin: 0 0 12px;
+
+  color: #f3f4fc;
+  font-size: 15px;
+}
+
+.recent-section p {
+  color: #aeb8d1;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .recent-section ul {
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -223,30 +561,94 @@
 .recent-section li {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
-  padding: 8px 0;
+  align-items: center;
+  gap: 12px;
+
+  padding: 9px 0;
+  border-bottom: 1px solid #313954;
+}
+
+.recent-section li strong {
+  color: #b99cff;
 }
 
 .recent-section li span {
-  color: #94a3b8;
+  color: #aeb8d1;
   font-size: 12px;
 }
 
 .error-message {
-  color: #fca5a5;
+  color: #ffabb5;
 }
 
-@media (max-width: 850px) {
-  .air-piano {
-    padding: 18px;
+/* ==========================================
+   RESPONSIVE - TABLETS
+   ========================================== */
+
+@media (max-width: 900px) {
+  .air-grid {
+    grid-template-columns: 1fr;
   }
 
   .air-header {
-    align-items: flex-start;
     flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - MOBILE
+   ========================================== */
+
+@media (max-width: 600px) {
+  .air-piano {
+    padding: 82px 16px 30px;
   }
 
-  .air-grid {
-    grid-template-columns: 1fr;
+  #root > .kl-menu {
+    top: 14px;
+    right: 16px;
+  }
+
+  #root > .kl-menu .kl-menu-button {
+    width: 46px;
+    height: 46px;
+  }
+
+  .air-card {
+    padding: 16px;
+  }
+
+  .air-header {
+    margin-bottom: 26px;
+  }
+
+  .air-header h1 {
+    font-size: 32px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .piano-keys {
+    gap: 6px;
+    max-width: 100%;
+  }
+
+  .piano-key {
+    height: 128px;
+    padding: 10px 2px;
+    font-size: 12px;
+    border-radius: 8px 8px 11px 11px;
+  }
+
+  .camera-buttons button {
+    padding: 11px 16px;
   }
 }

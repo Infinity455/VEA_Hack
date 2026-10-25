@@ -110,3 +110,99 @@
   color: #fca5a5;
   font-size: 12px;
 }
+
+
+/* ==================================
+   KEYLUSION PROFILE MENU
+   Add at the bottom of ProfileMenu.css
+   ================================== */
+
+.kl-menu {
+  position: relative;
+  z-index: 20;
+}
+
+/* Circular profile button */
+
+.kl-menu-button {
+  background: linear-gradient(
+    135deg,
+    #a66cff,
+    #526bf7
+  );
+  color: white;
+  border: 1px solid #9b85ed;
+  box-shadow: none;
+  transition: transform 0.15s ease;
+}
+
+.kl-menu-button:hover {
+  transform: translateY(-1px);
+}
+
+/* Dropdown panel */
+
+.kl-menu-panel {
+  background: #1a2032;
+  color: #f3f4fc;
+  border: 1px solid #404867;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Headings */
+
+.kl-menu-title {
+  color: #f3f4fc;
+  font-weight: 700;
+}
+
+.kl-menu-sub {
+  color: #aeb8d1;
+}
+
+/* Account information */
+
+.kl-menu-row {
+  border-color: #343d58;
+}
+
+.kl-menu-row span:first-child {
+  color: #aeb8d1;
+}
+
+.kl-menu-row span:last-child {
+  color: #f3f4fc;
+}
+
+/* Logout button */
+
+.kl-menu-logout {
+  background: linear-gradient(
+    110deg,
+    #965af2,
+    #526bf7
+  );
+  color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: none;
+  font-weight: 700;
+  transition: background 0.2s ease;
+}
+
+.kl-menu-logout:hover {
+  background: #715eef;
+}
+
+/* Error text */
+
+.kl-menu-error {
+  color: #ffb5c4;
+}
+
+@media (max-width: 600px) {
+  .kl-menu-panel {
+    max-width: calc(100vw - 24px);
+  }
+}

@@ -192,3 +192,219 @@
      -webkit-text-fill-color: #ffffff;
      caret-color: #ffffff;
    }
+  
+
+/* ==================================
+   KEYLUSION LOGIN - BLUE & PURPLE
+   Add at the bottom of Login.css
+   ================================== */
+
+.kl-login {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      ellipse at top right,
+      rgba(90, 100, 255, 0.12),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at bottom left,
+      rgba(130, 90, 255, 0.10),
+      transparent 42%
+    ),
+    #101425;
+  color: #f3f4fc;
+}
+
+/* Decorative circle*/
+
+.kl-login::before,
+.kl-login::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(70px);
+  opacity: 0.55;
+}
+
+.kl-login::before {
+  width: 520px;
+  height: 520px;
+  left: -220px;
+  bottom: -120px;
+  background: radial-gradient(
+    circle,
+    rgba(82, 107, 247, 0.22) 0%,
+    rgba(82, 107, 247, 0.12) 28%,
+    rgba(82, 107, 247, 0.05) 52%,
+    transparent 75%
+  );
+}
+
+.kl-login::after {
+  width: 500px;
+  height: 500px;
+  right: -180px;
+  top: -120px;
+  background: radial-gradient(
+    circle,
+    rgba(150, 90, 242, 0.20) 0%,
+    rgba(150, 90, 242, 0.11) 30%,
+    rgba(150, 90, 242, 0.05) 55%,
+    transparent 76%
+  );
+}
+
+/* Login card */
+
+.kl-login .kl-card {
+  position: relative;
+  z-index: 1;
+  width: min(440px, calc(100% - 32px));
+  padding: clamp(24px, 4vw, 38px);
+  background: #1a2032;
+  border: 1px solid #343d58;
+  border-radius: 20px;
+  box-shadow: none;
+}
+
+/* Logo and branding */
+
+.kl-login .kl-logo {
+  background: #121829;
+  border: 1px solid #3e4663;
+  border-radius: 12px;
+  color: #aa8aff;
+}
+
+.kl-login .kl-logo svg {
+  color: #aa8aff;
+  stroke: currentColor;
+}
+
+.kl-login .kl-name {
+  color: #f3f4fc;
+  font-weight: 750;
+}
+
+.kl-login .kl-tagline {
+  color: #ad8eff;
+  letter-spacing: 2px;
+}
+
+.kl-login .kl-headline {
+  color: #f3f4fc;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+}
+
+.kl-login .kl-sub {
+  color: #abb5d0;
+}
+
+/* Form labels and inputs */
+
+.kl-login .kl-label {
+  color: #c1c9e0;
+}
+
+.kl-login .kl-field {
+  overflow: hidden;
+  background: #111729;
+  border: 1px solid #3b4560;
+  border-radius: 11px;
+  box-shadow: none;
+}
+
+.kl-login .kl-field:focus-within {
+  border-color: #9d80fb;
+}
+
+.kl-login .kl-field-icon {
+  background: #20263e;
+  color: #a990ff;
+  border-color: #3b4560;
+}
+
+.kl-login .kl-input {
+  min-width: 0;
+  background: transparent;
+  color: #f3f4fc;
+  border: none;
+  box-shadow: none;
+}
+
+.kl-login .kl-input::placeholder {
+  color: #8390ac;
+}
+
+.kl-login .kl-input:focus {
+  outline: none;
+}
+
+/* Buttons */
+
+.kl-login .kl-submit {
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(
+    110deg,
+    #965af2,
+    #526bf7
+  );
+  color: white;
+  font-weight: 700;
+  box-shadow: none;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
+}
+
+.kl-login .kl-submit:not(:disabled):hover {
+  background: #715eef;
+  transform: translateY(-1px);
+}
+
+.kl-login .kl-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Links */
+
+.kl-login .kl-link {
+  color: #ad96ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.kl-login .kl-link:hover {
+  color: #c6b7ff;
+}
+
+/* Error and success messages */
+
+.kl-login .kl-message.error {
+  background: #35222f;
+  border: 1px solid #925269;
+  color: #ffc0ce;
+}
+
+.kl-login .kl-message.success {
+  background: #193132;
+  border: 1px solid #427c7b;
+  color: #b5ebe6;
+}
+
+/* Small screens */
+
+@media (max-width: 600px) {
+  .kl-login .kl-card {
+    padding: 24px;
+  }
+}

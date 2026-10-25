@@ -474,7 +474,7 @@ export function useHandTracking(onNoteDetected) {
                 if (ctx) {
                   // Yellow ring marks the palm reference.
                   ctx.beginPath();
-                  ctx.strokeStyle = "#fbbf24";
+                  ctx.strokeStyle = "#2563eb";
                   ctx.lineWidth = 2;
                   ctx.arc(
                     (1 - palm.x) * width,
@@ -486,7 +486,7 @@ export function useHandTracking(onNoteDetected) {
                   ctx.stroke();
 
                   // Draw the hand skeleton.
-                  ctx.strokeStyle = "#34d399";
+                  ctx.strokeStyle =  "#d946ef";
                   ctx.lineWidth = 2;
 
                   HAND_CONNECTIONS.forEach(([a, b]) => {
@@ -507,7 +507,7 @@ export function useHandTracking(onNoteDetected) {
 
                   landmarks.forEach((point) => {
                     ctx.beginPath();
-                    ctx.fillStyle = "#34d399";
+                    ctx.fillStyle = "#d946ef";
                     ctx.arc(
                       (1 - point.x) * width,
                       point.y * height,
@@ -587,10 +587,10 @@ export function useHandTracking(onNoteDetected) {
                   // Red: ready. Green: note triggered.
                   ctx.beginPath();
                   ctx.fillStyle = !state.calibrated
-                    ? "#fbbf24"
+                    ? "#2563EB"
                     : isActive
-                      ? "#34d399"
-                      : "#f87171";
+                      ? "#d946ef"
+                      : "#00e5ff";
 
                   ctx.arc(
                     x,
