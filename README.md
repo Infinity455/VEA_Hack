@@ -1,5 +1,5 @@
-## Project Overview
-This is a browser-based virtual piano that allows users to play musical notes using hand movements in front of their webcam. Instead of using a physical keyboard, users control piano sounds through real-time hand tracking.
+## Keylusion
+Keylusion is a browser-based virtual piano that allows users to play musical notes using hand movements in front of their webcam. Instead of using a physical keyboard, users control piano sounds through real-time hand tracking.
 The application combines computer vision, audio processing, and web development to create an interactive musical experience. Users can play notes, record their jam sessions with video and audio, save recordings, and optionally receive AI-powered music suggestions.
 
 ## Tech Stack
