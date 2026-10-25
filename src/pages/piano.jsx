@@ -52,7 +52,7 @@ export default function Piano() {
     <main className="air-piano">
       <header className="air-header">
         <div>
-          <p className="eyebrow">AIR PIANO</p>
+          <p className="eyebrow">KEYLUSION</p>
           <h1>Play music with your hands.</h1>
           <p className="subtitle">
             Your hands are the instrument. Move your fingers
